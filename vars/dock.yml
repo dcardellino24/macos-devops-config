@@ -1,0 +1,40 @@
+---
+# Set to 'true' to configure the Dock via dockutil.
+configure_dock: true
+dockitems_remove:
+  - Launchpad
+  - TV
+  - Podcasts
+  - 'App Store'
+  - Messages
+  - Maps
+  - Photos
+  - FaceTime
+  - Calendar
+  - Contacts
+  - Reminders
+  - Notes
+  - Keynote
+  - Numbers
+  - Pages
+  - Freeform
+  - Music
+dockitems_persist:
+  - name: "Google Chrome"
+    path: "/Applications/Google Chrome.app"
+    pos: 2
+  - name: "iterm"
+    path: "/Applications/iTerm.app"
+    pos: 3
+  - name: "Slack"
+    path: "/Applications/Slack.app"
+    pos: 4
+  - name: "Safari"
+    path: "/Applications/Safari.app"
+    pos: 5
+  - name: "1Password"
+    path: "/Applications/1Password.app"
+    pos: 6
+  - name: "Visual Studio Code"
+    path: "/Applications/Visual Studio Code.app"
+    pos: 7

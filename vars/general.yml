@@ -1,0 +1,4 @@
+---
+downloads: ~/.ansible-downloads/
+configure_osx: true
+osx_script: "~/.osx --no-restart"

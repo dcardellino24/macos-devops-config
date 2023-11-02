@@ -1,0 +1,8 @@
+---
+- name: Apply sudoers configuration
+  community.general.sudoers:
+    name: "{{ ansible_user_id }}"
+    user: "{{ ansible_user_id }}"
+    commands: ALL
+    nopassword: true
+  become: true

@@ -1,0 +1,14 @@
+---
+- name: Ensure fonts are installed.
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "~/Library/Fonts"
+  with_items: "{{ iterm2_fonts }}"
+  when: iterm2_fonts is defined
+
+- name: Ensure local DynamicProfiles are copied to iTerm2 directory.
+  ansible.builtin.copy:
+    src: "files/com.googlecode.iterm2.plist"
+    dest: "~/Library/Preferences"
+    remote_src: yes
+    backup: no

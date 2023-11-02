@@ -1,0 +1,11 @@
+---
+# - name: Check if AstroVim is installed
+#   ansible.builtin.stat:
+#     path: "{{ oh_my_zsh_installation_folder }}"
+#   register: oh_my_zsh_installed
+
+- name: Install AstroVim
+  ansible.builtin.git:
+    repo: https://github.com/AstroNvim/AstroNvim
+    dest: ~/.config/nvim
+    depth: 1

@@ -1,0 +1,6 @@
+---
+# See `geerlingguy.mas` role documentation for usage instructions.
+mas_installed_apps:
+  - { id: 1497506650, name: "Yubico Authenticator" }
+mas_email: "{{ lookup('ansible.builtin.env', 'MAS_EMAIL') }}"
+mas_password: "{{ lookup('ansible.builtin.env', 'MAS_PASSWORD') }}"

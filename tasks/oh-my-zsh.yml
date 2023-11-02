@@ -1,0 +1,67 @@
+---
+- name: Set ZSH as default shell
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+  ignore_errors: true
+
+- name: Define oh_my_zsh_installation_folder
+  ansible.builtin.set_fact:
+    oh_my_zsh_installation_folder: "{{ ansible_env.HOME }}/.oh-my-zsh"
+
+- name: Check if Oh-My-ZSH is installed
+  ansible.builtin.stat:
+    path: "{{ oh_my_zsh_installation_folder }}"
+  register: oh_my_zsh_installed
+
+- name: Install Oh-My-ZSH
+  block:
+
+    - name: Create temporary file
+      ansible.builtin.tempfile:
+        state: file
+      register: oh_my_zsh_install_script
+
+    - name: Download Oh-My-ZSH
+      ansible.builtin.get_url:
+        url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+        dest: "{{ oh_my_zsh_install_script.path }}"
+        mode: "0700"
+
+    - name: Install Oh-My-ZSH
+      ansible.builtin.command: "{{ oh_my_zsh_install_script.path }} --unattended"
+
+    - name: Remove the temporary file
+      ansible.builtin.file:
+        path: "{{ oh_my_zsh_install_script.path }}"
+        state: absent
+      when: oh_my_zsh_install_script.path is defined
+
+  when: not oh_my_zsh_installed.stat.exists
+
+- name: Remove write permission from groups and others
+  ansible.builtin.file:
+    path: "{{ oh_my_zsh_installation_folder }}"
+    owner: "{{ ansible_user_id }}"
+    mode: "go-w"
+    recurse: true
+
+- name: Define oh_my_zsh_custom_folder
+  ansible.builtin.set_fact:
+    oh_my_zsh_custom_folder: "{{ oh_my_zsh_installation_folder }}/custom"
+
+- name: Clone zsh-autosuggestions
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "{{ oh_my_zsh_custom_folder }}/plugins/zsh-autosuggestions"
+    version: master
+    force: true
+  when: oh_my_zsh_install_zsh_autosuggestions
+
+- name: Clone powerlevel10k theme
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k
+    dest: "{{ oh_my_zsh_custom_folder }}/themes/powerlevel10k"
+    version: master
+    force: true
+  when: oh_my_zsh_install_zsh_powerlevel10k_theme
