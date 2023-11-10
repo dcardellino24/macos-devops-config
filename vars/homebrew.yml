@@ -15,12 +15,14 @@ homebrew_installed_packages:
   - gpg
   - helm
   - helmfile
+  - jq
   - k9s
   - kubectl
   - kubectx
   - neovim
   - node
   - openssl
+  - pre-commit
   - ssh-copy-id
   - sops
   - terraform
@@ -31,6 +33,7 @@ homebrew_installed_packages:
   - velero
   - watch
   - wget
+  - yq
   - zsh
   - zsh-history-substring-search
 
@@ -48,6 +51,7 @@ homebrew_cask_apps:
   - google-chrome
   - google-cloud-sdk
   - iterm2
+  - pritunl
   - slack
   - todoist
   - visual-studio-code
